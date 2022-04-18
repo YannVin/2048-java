@@ -12,9 +12,12 @@ public class Jeu extends Observable {
     private Case[][] tabCases;
     private static Random rnd = new Random(4);
 
+    public Map <String, Point> hm = new HashMap<String,Point>();
     public Jeu(int size) {
+
         tabCases = new Case[size][size];
         rnd();
+        inithm(hm);
     }
 
     public int getSize() {
@@ -39,7 +42,7 @@ public class Jeu extends Observable {
 
                         switch (r) {
                             case 0:
-                                tabCases[i][j] = null;
+                                tabCases[i][j] = new Case(0,Jeu.this);
                                 break;
                             case 1:
                                 tabCases[i][j] = new Case(2,Jeu.this);
@@ -61,16 +64,30 @@ public class Jeu extends Observable {
 
     }
 
-    Map <String, Point> hm = new HashMap<String,Point>();
+
+
+    public void inithm(Map hm) {
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                Point actu = new Point(i,j);
+                hm.put(tabCases[i][j].toString(),actu);
+            }
+        }
+    }
 
     public Point getVoisin(Direction d,Case c){
         Point voisin = new Point (0,0);
         if(d == Direction.gauche)
         {
             Point actu = hm.get(c.toString());
-            voisin = new Point(actu.x-1,actu.y);
+            if(actu.y != 0)
+                voisin = new Point(actu.x,actu.y-1);
+            else
+            {
+                voisin = new Point(actu.x, actu.y);
+            }
         }
-        else if(d == Direction.droite)
+        /*else if(d == Direction.droite)
         {
             Point actu = hm.get(c.toString());
             voisin = new Point(actu.x+1,actu.y);
@@ -84,18 +101,25 @@ public class Jeu extends Observable {
         {
             Point actu = hm.get(c.toString());
             voisin = new Point(actu.x,actu.y+1);
-        }
+        }*/
         return voisin;
     }
 
+
     public void action(Direction d) {
+
         if (d == Direction.gauche) {
             for (int i = 0; i < tabCases.length; i++) {
+
                 for (int j = 0; j < tabCases.length; j++) {
                     tabCases[i][j].deplacer(d);
+                    //System.out.println(d);
+                    //System.out.println("La case qui est affiché est i:" + i + " et la coord j est :" + j +" la valeur est :" + this.getCase(i,j).getValeur());
+                    //System.out.print(this.getCase(i,j).getValeur() + "  ");
                 }
+                //System.out.println(" ");
             }
-        } else if (d == Direction.droite) {
+        } /*else if (d == Direction.droite) {
             for (int i = tabCases.length; i > 0; i--) {
                 for (int j = 0; j < tabCases.length; j++) {
                     tabCases[i][j].deplacer(d);
@@ -119,6 +143,8 @@ public class Jeu extends Observable {
                     tabCases[i][j].deplacer(d);
                 }
             }
-        }
+        }*/
+        setChanged();
+        notifyObservers();
     }
 }
