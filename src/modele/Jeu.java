@@ -64,6 +64,29 @@ public class Jeu extends Observable {
 
     }
 
+    public void random() {
+        for(int i=0;i< tabCases.length;i++)
+        {
+            for(int j=0; j< tabCases.length;i++)
+            {
+                if(tabCases[i][j].getValeur() == 0)
+                {
+                    int r= rnd.nextInt(3);
+                    switch (r) {
+                        case 0:
+                            tabCases[i][j].setValeur(0);
+                            break;
+                        case 1:
+                            tabCases[i][j].setValeur(2);
+                            break;
+                        case 2:
+                            tabCases[i][j].setValeur(4);
+                            break;
+                    }
+                }
+            }
+        }
+    }
 
 
     public void inithm(Map hm) {
@@ -87,21 +110,43 @@ public class Jeu extends Observable {
                 voisin = new Point(actu.x, actu.y);
             }
         }
-        /*else if(d == Direction.droite)
+        else if(d == Direction.droite)
         {
             Point actu = hm.get(c.toString());
-            voisin = new Point(actu.x+1,actu.y);
+            if(actu.y != tabCases.length-1)
+            {
+                voisin = new Point(actu.x, actu.y+1);
+            }
+            else
+            {
+                voisin = new Point(actu.x, actu.y);
+            }
         }
         else if(d == Direction.haut)
         {
             Point actu = hm.get(c.toString());
-            voisin = new Point(actu.x,actu.y-1);
+            if(actu.x != 0)
+            {
+                voisin = new Point(actu.x-1, actu.y);
+            }
+            else
+            {
+                voisin = new Point(actu.x, actu.y);
+            }
         }
         else if(d == Direction.bas)
         {
             Point actu = hm.get(c.toString());
-            voisin = new Point(actu.x,actu.y+1);
-        }*/
+            if(actu.x != tabCases.length-1)
+            {
+                voisin = new Point(actu.x+1, actu.y);
+            }
+            else
+            {
+                voisin = new Point(actu.x, actu.y);
+            }
+
+        }
         return voisin;
     }
 
@@ -110,18 +155,13 @@ public class Jeu extends Observable {
 
         if (d == Direction.gauche) {
             for (int i = 0; i < tabCases.length; i++) {
-
                 for (int j = 0; j < tabCases.length; j++) {
                     tabCases[i][j].deplacer(d);
-                    //System.out.println(d);
-                    //System.out.println("La case qui est affiché est i:" + i + " et la coord j est :" + j +" la valeur est :" + this.getCase(i,j).getValeur());
-                    //System.out.print(this.getCase(i,j).getValeur() + "  ");
                 }
-                //System.out.println(" ");
             }
-        } /*else if (d == Direction.droite) {
-            for (int i = tabCases.length; i > 0; i--) {
-                for (int j = 0; j < tabCases.length; j++) {
+        } else if (d == Direction.droite) {
+            for (int i = 0; i < tabCases.length; i++) {
+                for (int j = tabCases.length-1; j >= 0; j--) {
                     tabCases[i][j].deplacer(d);
                 }
 
@@ -138,12 +178,13 @@ public class Jeu extends Observable {
         }
         else if (d == Direction.bas)
         {
-            for (int j = tabCases.length; j > 0; j--) {
-                for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                for (int i = tabCases.length-1; i >= 0; i--) {
                     tabCases[i][j].deplacer(d);
                 }
             }
-        }*/
+        }
+        //random();
         setChanged();
         notifyObservers();
     }
