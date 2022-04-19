@@ -68,7 +68,12 @@ public class Swing2048 extends JFrame implements Observer {
 
                             tabC[i][j].setText("");
 
+
                         } else {
+                            tabC[i][j].setForeground(Color.BLUE);
+                            //tabC[i][j].setBackground(Color.red);
+                            //tabC[i][j].setOpaque(true);
+
                             tabC[i][j].setText(c.getValeur() + "");
                         }
 

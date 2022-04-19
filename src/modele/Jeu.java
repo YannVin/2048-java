@@ -14,9 +14,9 @@ public class Jeu extends Observable {
 
     public Map <String, Point> hm = new HashMap<String,Point>();
     public Jeu(int size) {
-
         tabCases = new Case[size][size];
-        rnd();
+        init();
+        random();
         inithm(hm);
     }
 
@@ -64,11 +64,18 @@ public class Jeu extends Observable {
 
     }
 
+    public void init() {
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                tabCases[i][j] = new Case(0, Jeu.this);
+            }
+        }
+    }
+
     public void random() {
-        for(int i=0;i< tabCases.length;i++)
-        {
-            for(int j=0; j< tabCases.length;i++)
-            {
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+
                 if(tabCases[i][j].getValeur() == 0)
                 {
                     int r= rnd.nextInt(3);
@@ -93,7 +100,8 @@ public class Jeu extends Observable {
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 Point actu = new Point(i,j);
-                hm.put(tabCases[i][j].toString(),actu);
+                //if(tabCases[i][j] != null)
+                    hm.put(tabCases[i][j].toString(),actu);
             }
         }
     }
@@ -150,6 +158,31 @@ public class Jeu extends Observable {
         return voisin;
     }
 
+    public boolean TestDefaite()
+    {
+        boolean test = false;
+        Case [][] tabtest = new Case[getSize()][getSize()];
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                tabtest[i][j] = new Case(0, Jeu.this);
+                tabtest[i][j].setValeur(tabCases[i][j].getValeur());
+                tabtest[i][j].deplacer(Direction.gauche);
+                tabtest[i][j].deplacer(Direction.droite);
+                tabtest[i][j].deplacer(Direction.haut);
+                tabtest[i][j].deplacer(Direction.bas);
+                if( tabtest[i][j] != tabCases[i][j])
+                {
+                    test = false;
+                }
+                else
+                {
+                    test = true;
+                }
+            }
+        }
+        return test;
+    }
+
 
     public void action(Direction d) {
 
@@ -161,31 +194,39 @@ public class Jeu extends Observable {
             }
         } else if (d == Direction.droite) {
             for (int i = 0; i < tabCases.length; i++) {
-                for (int j = tabCases.length-1; j >= 0; j--) {
+                for (int j = tabCases.length - 1; j >= 0; j--) {
                     tabCases[i][j].deplacer(d);
                 }
 
             }
-        }
-        else if (d == Direction.haut)
-        {
+        } else if (d == Direction.haut) {
             for (int j = 0; j < tabCases.length; j++) {
                 for (int i = 0; i < tabCases.length; i++) {
                     tabCases[i][j].deplacer(d);
                 }
 
             }
-        }
-        else if (d == Direction.bas)
-        {
+        } else if (d == Direction.bas) {
             for (int j = 0; j < tabCases.length; j++) {
-                for (int i = tabCases.length-1; i >= 0; i--) {
+                for (int i = tabCases.length - 1; i >= 0; i--) {
                     tabCases[i][j].deplacer(d);
                 }
             }
         }
-        //random();
+        random();
         setChanged();
         notifyObservers();
+        boolean testtab=true;
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                if (tabCases[i][j].getValeur() == 0)
+                    testtab = false;
+            }
+        }
+        boolean defaite = false;
+        if(testtab)
+            defaite = TestDefaite();
+        if (defaite)
+            System.out.println("Tu as perdu BOUFFONS  LOOOOOOOOOSERS");
     }
 }
