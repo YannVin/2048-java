@@ -46,12 +46,6 @@ public class Swing2048 extends JFrame implements Observer {
         setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
-        if(jeu.getDefaite())
-        {
-            contentPane.setBackground(Color.black);
-            rafraichir();
-            System.out.println("aaaaaaaaaaaaaaaa");
-        }
 
     }
 
@@ -66,10 +60,8 @@ public class Swing2048 extends JFrame implements Observer {
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override
             public void run() {
-                JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
                 if(jeu.getDefaite())
                 {
-                    contentPane.setForeground(Color.black);
                     rafraichir();
                     System.out.println("aaaaaaaaaaaaaaaa");
 

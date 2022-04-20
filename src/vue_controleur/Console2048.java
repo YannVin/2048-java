@@ -1,6 +1,7 @@
 package vue_controleur;
 
 import modele.Case;
+import modele.Direction;
 import modele.Jeu;
 
 import java.io.IOException;
@@ -60,9 +61,21 @@ public class Console2048 extends Thread implements Observer {
                             e.printStackTrace();
                         }
 
-                        if (s.equals("4") || s.equals("8") || s.equals("6") || s.equals("2") ) {
+                        if (s.equals("4")) {
                             end = true;
-                            jeu.rnd();
+                            jeu.action(Direction.gauche);
+                        }
+                        if (s.equals("6")) {
+                            end = true;
+                            jeu.action(Direction.droite);
+                        }
+                        if (s.equals("8")) {
+                            end = true;
+                            jeu.action(Direction.haut);
+                        }
+                        if (s.equals("2")) {
+                            end = true;
+                            jeu.action(Direction.bas);
                         }
                     }
 
@@ -94,7 +107,9 @@ public class Console2048 extends Thread implements Observer {
 
             }
             System.out.println();
+
         }
+        System.out.println("score : " + jeu.score());
 
     }
 
