@@ -16,7 +16,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Swing2048 extends JFrame implements Observer {
-    private static final int PIXEL_PER_SQUARE = 60;
+    private static final int PIXEL_PER_SQUARE = 250;
     // tableau de cases : i, j -> case graphique
     private JLabel[][] tabC;
     private Jeu jeu;
@@ -46,6 +46,12 @@ public class Swing2048 extends JFrame implements Observer {
         setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
+        if(jeu.getDefaite())
+        {
+            contentPane.setBackground(Color.black);
+            rafraichir();
+            System.out.println("aaaaaaaaaaaaaaaa");
+        }
 
     }
 
@@ -60,6 +66,14 @@ public class Swing2048 extends JFrame implements Observer {
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override
             public void run() {
+                JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+                if(jeu.getDefaite())
+                {
+                    contentPane.setForeground(Color.black);
+                    rafraichir();
+                    System.out.println("aaaaaaaaaaaaaaaa");
+
+                }
                 for (int i = 0; i < jeu.getSize(); i++) {
                     for (int j = 0; j < jeu.getSize(); j++) {
                         Case c = jeu.getCase(i, j);
@@ -150,24 +164,6 @@ public class Swing2048 extends JFrame implements Observer {
                                 System.out.println("PAS DE COULEUR");
                                 break;
                         }
-
-                        /*if (c.getValeur() == 0) {
-
-                            tabC[i][j].setText("");
-
-
-                        } else if(c.getValeur() == 2)
-                        {
-                            tabC[i][j].setForeground(Color.BLUE);
-                            tabC[i][j].setBackground(Color.red);
-                            tabC[i][j].setOpaque(true);
-
-                            tabC[i][j].setText(c.getValeur() + "");
-                        }else if (c.getValeur() ==4)
-                        {
-
-                        }else*/
-
                     }
                 }
             }

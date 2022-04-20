@@ -12,6 +12,7 @@ public class Jeu extends Observable {
     private Case[][] tabCases;
     private static Random rnd = new Random(4);
 
+    private boolean defaite = false;
     public Map <String, Point> hm = new HashMap<String,Point>();
     public Jeu(int size) {
         tabCases = new Case[size][size];
@@ -165,30 +166,6 @@ public class Jeu extends Observable {
         return voisin;
     }
 
-   /* public boolean TestDefaite()
-    {
-        boolean test = false;
-        Case [][] tabtest = new Case[getSize()][getSize()];
-        for (int i = 0; i < tabCases.length; i++) {
-            for (int j = 0; j < tabCases.length; j++) {
-                tabtest[i][j] = new Case(0, Jeu.this);
-                tabtest[i][j].setValeur(tabCases[i][j].getValeur());
-                tabtest[i][j].deplacer(Direction.gauche);
-                tabtest[i][j].deplacer(Direction.droite);
-                tabtest[i][j].deplacer(Direction.haut);
-                tabtest[i][j].deplacer(Direction.bas);
-                if( tabtest[i][j] != tabCases[i][j])
-                {
-                    test = false;
-                }
-                else
-                {
-                    test = true;
-                }
-            }
-        }
-        return test;
-    }*/
 
     public boolean TestDefaite() {
         boolean test = true;
@@ -215,6 +192,10 @@ public class Jeu extends Observable {
             }
         }
         return test;
+    }
+
+    public boolean getDefaite() {
+        return this.defaite;
     }
 
     public int score(){
@@ -269,7 +250,6 @@ public class Jeu extends Observable {
                     testtab = false;
             }
         }
-        boolean defaite = false;
         if(testtab)
             defaite = TestDefaite();
         if (defaite)
