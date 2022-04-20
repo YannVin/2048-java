@@ -66,79 +66,81 @@ public class Swing2048 extends JFrame implements Observer {
                         tabC[i][j].setForeground(Color.black);
                         switch(c.getValeur()){
                             case 0:
+                                tabC[i][j].setBackground(Color.decode("#CCC0B2"));
+                                tabC[i][j].setOpaque(true);
                                 tabC[i][j].setText("");
                                 break;
 
                             case 2:
-                                tabC[i][j].setBackground(Color.yellow);
+                                tabC[i][j].setBackground(Color.decode("#EEE4DA"));
                                 tabC[i][j].setOpaque(true);
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 4:
-                                tabC[i][j].setBackground(Color.orange);
+                                tabC[i][j].setBackground(Color.decode("#ECE0C8"));
                                 tabC[i][j].setOpaque(true);
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 8:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#F3B07B"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 16:
-                                tabC[i][j].setBackground(Color.cyan);
+                                tabC[i][j].setBackground(Color.decode("#F59563"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 32:
-                                tabC[i][j].setBackground(Color.blue);
+                                tabC[i][j].setBackground(Color.decode("#F57D5E"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 64:
-                                tabC[i][j].setBackground(Color.green);
+                                tabC[i][j].setBackground(Color.decode("#F65D3B"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 128:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#EDCE71"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 256:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#EDCC61"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 512:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#ECC850"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 1024:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#EDC53F"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");
                                 break;
 
                             case 2048:
-                                tabC[i][j].setBackground(Color.red);
+                                tabC[i][j].setBackground(Color.decode("#EFC12A"));
                                 tabC[i][j].setOpaque(true);
 
                                 tabC[i][j].setText(c.getValeur() + "");

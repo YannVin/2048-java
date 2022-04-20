@@ -78,8 +78,8 @@ public class Jeu extends Observable {
 
                 if(tabCases[i][j].getValeur() == 0)
                 {
-                    int r= rnd.nextInt(3);
-                    switch (r) {
+                    int r= rnd.nextInt(70);
+                    /*switch (r) {
                         case 0:
                             tabCases[i][j].setValeur(0);
                             break;
@@ -89,7 +89,14 @@ public class Jeu extends Observable {
                         case 2:
                             tabCases[i][j].setValeur(4);
                             break;
-                    }
+                    }*/
+                    if((r >=0 )&&(r<=10))
+                        tabCases[i][j].setValeur(2);
+                    else if((r >=11 )&&(r<=20))
+                        tabCases[i][j].setValeur(4);
+                    else
+                        tabCases[i][j].setValeur(0);
+
                 }
             }
         }
@@ -158,7 +165,7 @@ public class Jeu extends Observable {
         return voisin;
     }
 
-    public boolean TestDefaite()
+   /* public boolean TestDefaite()
     {
         boolean test = false;
         Case [][] tabtest = new Case[getSize()][getSize()];
@@ -181,8 +188,46 @@ public class Jeu extends Observable {
             }
         }
         return test;
+    }*/
+
+    public boolean TestDefaite() {
+        boolean test = true;
+        for (int i = 0; i < this.tabCases.length; i++) {
+            for (int j = 0; j < this.tabCases.length; j++) {
+                if ((i > 0) && (this.tabCases[i][j].getValeur() == this.tabCases[i - 1][j].getValeur())) {
+                    test=false;
+                }
+                if ((j > 0)
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j - 1].getValeur())) {
+                    test=false;
+                }
+                if ((i < this.tabCases.length - 1)
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i + 1][j].getValeur())) {
+                    test=false;
+                }
+                if ((j < this.tabCases.length - 1)
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j + 1].getValeur())) {
+                    test=false;
+                }
+                if (this.tabCases[i][j].getValeur() == 0) {
+                    test=false;
+                }
+            }
+        }
+        return test;
     }
 
+    public int score(){
+        int score = 0;
+        for(int i=0 ; i<this.tabCases.length ; i++){
+            for(int j=0 ; j<this.tabCases.length ; j++){
+                if(score<this.tabCases[i][j].getValeur()){
+                    score = this.tabCases[i][j].getValeur();
+                }
+            }
+        }
+        return score;
+    }
 
     public void action(Direction d) {
 
@@ -216,6 +261,7 @@ public class Jeu extends Observable {
         random();
         setChanged();
         notifyObservers();
+
         boolean testtab=true;
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
@@ -227,6 +273,6 @@ public class Jeu extends Observable {
         if(testtab)
             defaite = TestDefaite();
         if (defaite)
-            System.out.println("Tu as perdu BOUFFONS  LOOOOOOOOOSERS");
+            System.out.println("Tu as perdu");
     }
 }
