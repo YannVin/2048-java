@@ -4,9 +4,9 @@ import vue_controleur.Swing2048;
 
 public class Main {
 
-    public static void main(String[] args) {
-        mainConsole();
-        //mainSwing();
+    public static void main(String[] args) { //choix entre le mode console et le mode graphique
+        //mainConsole();
+        mainSwing();
 
     }
 

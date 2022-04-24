@@ -14,7 +14,7 @@ public class Jeu extends Observable {
 
     private boolean defaite = false;
     public Map <String, Point> hm = new HashMap<String,Point>();
-    public Jeu(int size) {
+    public Jeu(int size) { //constructeur de jeu
         tabCases = new Case[size][size];
         init();
         random();
@@ -23,16 +23,16 @@ public class Jeu extends Observable {
 
     public int getSize() {
         return tabCases.length;
-    }
+    } //recupere la taille
 
     public Case getCase(int i, int j) {
         return tabCases[i][j];
-    }
+    } //recupere une case
 
 
 
 
-    public void rnd() {
+    public void rnd() { //fonction rand de base
         new Thread() { // permet de libérer le processus graphique ou de la console
             public void run() {
                 int r;
@@ -65,7 +65,7 @@ public class Jeu extends Observable {
 
     }
 
-    public void init() {
+    public void init() { //initialise le la grille
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 tabCases[i][j] = new Case(0, Jeu.this);
@@ -73,13 +73,14 @@ public class Jeu extends Observable {
         }
     }
 
+    //procédure qui affiche un nombre aléatoire entre 0,2,4 dans les cases vides
     public void random() {
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
 
                 if(tabCases[i][j].getValeur() == 0)
                 {
-                    int r= rnd.nextInt(70);
+                    int r= rnd.nextInt(70); //tire un nombre aléatoire entre 0 et 69
                     /*switch (r) {
                         case 0:
                             tabCases[i][j].setValeur(0);
@@ -91,11 +92,11 @@ public class Jeu extends Observable {
                             tabCases[i][j].setValeur(4);
                             break;
                     }*/
-                    if((r >=0 )&&(r<=10))
+                    if((r >=0 )&&(r<=10)) //si ce nombre est entre 0 et 10 on attribut la valeur 2 à la case
                         tabCases[i][j].setValeur(2);
-                    else if((r >=11 )&&(r<=20))
+                    else if((r >=11 )&&(r<=20)) //si ce nombre est entre 11 et 20 on attribut la valeur 4 à la case
                         tabCases[i][j].setValeur(4);
-                    else
+                    else //sinon on ne met rien
                         tabCases[i][j].setValeur(0);
 
                 }
@@ -103,8 +104,9 @@ public class Jeu extends Observable {
         }
     }
 
-
-    public void inithm(Map hm) {
+    //procédure d'initialisation de la hashmap
+    public void inithm(Map hm)
+    {
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 Point actu = new Point(i,j);
@@ -114,6 +116,7 @@ public class Jeu extends Observable {
         }
     }
 
+    //Fonction qui retourne le voisin de la case en fonction de la direction
     public Point getVoisin(Direction d,Case c){
         Point voisin = new Point (0,0);
         if(d == Direction.gauche)
@@ -166,7 +169,7 @@ public class Jeu extends Observable {
         return voisin;
     }
 
-
+    //Fonction qui va test si le jeu est perdu ou non
     public boolean TestDefaite() {
         boolean test = true;
         for (int i = 0; i < this.tabCases.length; i++) {
@@ -194,15 +197,18 @@ public class Jeu extends Observable {
         return test;
     }
 
+    //Accesseur de defaite
     public boolean getDefaite() {
         return this.defaite;
     }
 
+    //Fonction qui calcule et retourne le score (case la plus grande)
     public int score(){
         int score = 0;
         for(int i=0 ; i<this.tabCases.length ; i++){
             for(int j=0 ; j<this.tabCases.length ; j++){
-                if(score<this.tabCases[i][j].getValeur()){
+                if(score<this.tabCases[i][j].getValeur())
+                {
                     score = this.tabCases[i][j].getValeur();
                 }
             }
@@ -210,7 +216,7 @@ public class Jeu extends Observable {
         return score;
     }
 
-    public void action(Direction d) {
+    public void action(Direction d) { //fonction qui applique l'action (deplacer ou fusionner) a toute les cases de la grille
 
         if (d == Direction.gauche) {
             for (int i = 0; i < tabCases.length; i++) {
@@ -250,9 +256,9 @@ public class Jeu extends Observable {
                     testtab = false;
             }
         }
-        if(testtab)
+        if(testtab) //si grille pleine on teste si on a perdu
             defaite = TestDefaite();
         if (defaite)
-            System.out.println("Tu as perdu");
+            System.out.println("Défaite!!!");
     }
 }

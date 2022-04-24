@@ -20,6 +20,8 @@ public class Swing2048 extends JFrame implements Observer {
     // tableau de cases : i, j -> case graphique
     private JLabel[][] tabC;
     private Jeu jeu;
+    private JLabel label_score;
+    private JPanel contentPane = new JPanel(new BorderLayout());
 
 
     public Swing2048(Jeu _jeu) {
@@ -28,8 +30,18 @@ public class Swing2048 extends JFrame implements Observer {
         setSize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
 
+        //Panel du score
+        label_score = new JLabel();
+        JPanel scorePane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        scorePane.add(label_score);
 
-        JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+        //Panel jeu
+        JPanel jeuPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+
+
+
+        contentPane.add(scorePane,BorderLayout.NORTH);
+
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
@@ -39,10 +51,11 @@ public class Swing2048 extends JFrame implements Observer {
                 tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
 
-                contentPane.add(tabC[i][j]);
+                jeuPane.add(tabC[i][j]);
 
             }
         }
+        contentPane.add(jeuPane,BorderLayout.CENTER);
         setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
@@ -60,12 +73,7 @@ public class Swing2048 extends JFrame implements Observer {
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override
             public void run() {
-                if(jeu.getDefaite())
-                {
-                    rafraichir();
-                    System.out.println("aaaaaaaaaaaaaaaa");
-
-                }
+                label_score.setText("Score : " +jeu.score()+"");
                 for (int i = 0; i < jeu.getSize(); i++) {
                     for (int j = 0; j < jeu.getSize(); j++) {
                         Case c = jeu.getCase(i, j);
@@ -156,6 +164,26 @@ public class Swing2048 extends JFrame implements Observer {
                                 System.out.println("PAS DE COULEUR");
                                 break;
                         }
+                    }
+                }
+                if(jeu.getDefaite())
+                {
+                    String[] options = {"Rejouer", "Arreter"};
+                    //JOptionPane.showMessageDialog(rootPane,"Pas de chance vous avez perdu !" + " Votre Score est de : " + jeu.score()+ " ","Défaite", JOptionPane.INFORMATION_MESSAGE);
+                    int x = JOptionPane.showOptionDialog(null, "Pas de chance vous avez perdu !" + " Votre Score est de : " + jeu.score()+ " ", "Défaite", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                    //int input = JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing me?",JOptionPane.OK_CANCEL_OPTION);
+
+                    if(options[x] == "Rejouer")
+                    {
+                        contentPane.setVisible(false);
+                        jeu = new Jeu(4);
+                        Swing2048 vue = new Swing2048(jeu);
+                        jeu.addObserver(vue);
+                        vue.setVisible(true);
+                    }
+                    else if(options[x] == "Arreter")
+                    {
+                        System.exit(0);
                     }
                 }
             }
