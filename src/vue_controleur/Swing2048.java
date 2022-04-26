@@ -180,6 +180,8 @@ public class Swing2048 extends JFrame implements Observer {
                         Swing2048 vue = new Swing2048(jeu);
                         jeu.addObserver(vue);
                         vue.setVisible(true);
+
+
                     }
                     else if(options[x] == "Arreter")
                     {
