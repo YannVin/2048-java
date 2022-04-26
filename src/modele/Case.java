@@ -24,7 +24,6 @@ public class Case {
             Case voisinC = j.getCase(voisin.x, voisin.y);
             Point actu = j.hm.get(this.toString()); //on recupere les coordonnées de la case actuel
             Case actuC = j.getCase(actu.x, actu.y);
-            //System.out.println("Je suis le voisin gauche de : " + this.getValeur() + "mes coord en x et en y sont : " + voisin.x + "___ " + voisin.y);
             while ((actu.y != 0) && (voisinC.getValeur() == 0)) { //On deplace si case vide et pas en bordure
                 voisinC.setValeur(actuC.getValeur());
                 actuC.setValeur(0);
@@ -46,7 +45,6 @@ public class Case {
             Case voisinC = j.getCase(voisin.x, voisin.y);
             Point actu = j.hm.get(this.toString());
             Case actuC = j.getCase(actu.x,actu.y);
-            //System.out.println("Je suis le voisin gauche de : " + this.getValeur() + "mes coord en x et en y sont : " + voisin.x + "___ " + voisin.y );
             while ((actu.y != j.getSize()-1) && (voisinC.getValeur() == 0)) {
                 voisinC.setValeur(actuC.getValeur());
                 actuC.setValeur(0);
@@ -68,7 +66,6 @@ public class Case {
             Case voisinC = j.getCase(voisin.x, voisin.y);
             Point actu = j.hm.get(this.toString());
             Case actuC = j.getCase(actu.x,actu.y);
-            //System.out.println("Je suis le voisin gauche de : " + this.getValeur() + "mes coord en x et en y sont : " + voisin.x + "___ " + voisin.y );
             while ((actu.x != 0) && (voisinC.getValeur() == 0)) {
                 voisinC.setValeur(actuC.getValeur());
                 actuC.setValeur(0);
@@ -90,7 +87,7 @@ public class Case {
             Case voisinC = j.getCase(voisin.x, voisin.y);
             Point actu = j.hm.get(this.toString());
             Case actuC = j.getCase(actu.x,actu.y);
-            //System.out.println("Je suis le voisin gauche de : " + this.getValeur() + "mes coord en x et en y sont : " + voisin.x + "___ " + voisin.y );
+
             while ((actu.x != j.getSize()-1) && (voisinC.getValeur() == 0)) {
                 voisinC.setValeur(actuC.getValeur());
                 actuC.setValeur(0);
@@ -106,8 +103,5 @@ public class Case {
                 actuC.setValeur(0);
             }
         }
-
-
-
     }
 }

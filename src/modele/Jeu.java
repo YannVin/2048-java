@@ -110,8 +110,7 @@ public class Jeu extends Observable {
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 Point actu = new Point(i,j);
-                //if(tabCases[i][j] != null)
-                    hm.put(tabCases[i][j].toString(),actu);
+                hm.put(tabCases[i][j].toString(),actu);
             }
         }
     }
@@ -174,22 +173,19 @@ public class Jeu extends Observable {
         boolean test = true;
         for (int i = 0; i < this.tabCases.length; i++) {
             for (int j = 0; j < this.tabCases.length; j++) {
-                if ((i > 0) && (this.tabCases[i][j].getValeur() == this.tabCases[i - 1][j].getValeur())) {
+                if ((i > 0) && (this.tabCases[i][j].getValeur() == this.tabCases[i - 1][j].getValeur())) { //haut
                     test=false;
                 }
                 if ((j > 0)
-                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j - 1].getValeur())) {
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j - 1].getValeur())) { //gauche
                     test=false;
                 }
                 if ((i < this.tabCases.length - 1)
-                        && (this.tabCases[i][j].getValeur() == this.tabCases[i + 1][j].getValeur())) {
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i + 1][j].getValeur())) { //bas
                     test=false;
                 }
                 if ((j < this.tabCases.length - 1)
-                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j + 1].getValeur())) {
-                    test=false;
-                }
-                if (this.tabCases[i][j].getValeur() == 0) {
+                        && (this.tabCases[i][j].getValeur() == this.tabCases[i][j + 1].getValeur())) { //droite
                     test=false;
                 }
             }

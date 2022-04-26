@@ -32,16 +32,13 @@ public class Swing2048 extends JFrame implements Observer {
 
         //Panel du score
         label_score = new JLabel();
-        JPanel scorePane = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel scorePane = new JPanel(new FlowLayout(FlowLayout.CENTER));
         scorePane.add(label_score);
 
         //Panel jeu
         JPanel jeuPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
 
-
-
         contentPane.add(scorePane,BorderLayout.NORTH);
-
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
@@ -169,9 +166,7 @@ public class Swing2048 extends JFrame implements Observer {
                 if(jeu.getDefaite())
                 {
                     String[] options = {"Rejouer", "Arreter"};
-                    //JOptionPane.showMessageDialog(rootPane,"Pas de chance vous avez perdu !" + " Votre Score est de : " + jeu.score()+ " ","Défaite", JOptionPane.INFORMATION_MESSAGE);
                     int x = JOptionPane.showOptionDialog(null, "Pas de chance vous avez perdu !" + " Votre Score est de : " + jeu.score()+ " ", "Défaite", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-                    //int input = JOptionPane.showConfirmDialog(null, "Are you sure to close this window?", "Really Closing me?",JOptionPane.OK_CANCEL_OPTION);
 
                     if(options[x] == "Rejouer")
                     {
@@ -180,8 +175,6 @@ public class Swing2048 extends JFrame implements Observer {
                         Swing2048 vue = new Swing2048(jeu);
                         jeu.addObserver(vue);
                         vue.setVisible(true);
-
-
                     }
                     else if(options[x] == "Arreter")
                     {
